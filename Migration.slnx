@@ -1,0 +1,8 @@
+<Solution>
+  <Folder Name="/MovieMigration/">
+    <Project Path="Movie.UI/Movie.UI.csproj" Id="f9f73e43-ddd2-4333-b109-9988c3cca9bb" />
+    <Project Path="MovieDomain/MovieDomain.csproj" Id="8d4a0714-d52c-4b67-95ee-465c52ef35f2" />
+    <Project Path="MovieInfrastructure/MovieInfrastructure.csproj" Id="bb5fcfcf-a046-4f5f-b510-d3dd0611a735" />
+    <Project Path="MovieService/MovieService.csproj" Id="4a43347c-7792-444f-afcd-f88dd674109f" />
+  </Folder>
+</Solution>
