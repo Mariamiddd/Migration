@@ -8,5 +8,6 @@ namespace MovieService.Interfaces
     {
         Task<ICollection<MovieDomain.DTOs.MovieDTO>> GetAllMovies();
         Task AddMovieAsync(MovieDomain.DTOs.CreateMovieDTO createMovieDTO);
+        Task <MovieDomain.DTOs.MovieDTO> GetMovieById(int id);
     }
 }
