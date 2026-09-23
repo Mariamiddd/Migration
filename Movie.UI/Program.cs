@@ -50,22 +50,50 @@ namespace Movie.UI
                 Console.WriteLine();
             }
 
-
-            //test
-            //  add studio
-            var studio = new Studio { Name = "Universal Pictures", CountryId = 1 };
+            // create a new studio and add it to the database
+            var studio = new Studio { Name = "MGM", CountryId = 1 }; 
             dbContext.Studios.Add(studio);
             await dbContext.SaveChangesAsync();
 
+            var st = await dbContext.Studios.FirstOrDefaultAsync(s => s.Name == "MGM");
+
             // create movie
-            var createMovieDto = new CreateMovieDTO
+            var movieDto = new CreateMovieDTO
             {
-                Title = "singin in the rain",
+                Title = "Singin' in the Rain",
                 ReleaseYear = 1952,
-                StudioId = studio.Id
+                StudioId = st.Id
             };
-            await movieService.AddMovieAsync(createMovieDto);
-            Console.WriteLine("--- movie added successfully! ---");
+            await movieService.AddMovieAsync(movieDto);
+
+            //create actor from the movie
+            var actorDto = new CreateActorDTO
+            {
+                FirstName = "Gene",
+                LastName = "Kelly"
+            };
+            await actorService.AddActorAsync(actorDto);
+
+            Console.WriteLine("film and actor created");
+
+            // take the movie and actor from the database
+            var film = await dbContext.Movies
+                .FirstAsync(m => m.Title == "Singin' in the Rain");
+
+            var actor = await dbContext.Actors
+                .FirstAsync(a => a.FirstName == "Gene" && a.LastName == "Kelly");
+
+            // connect novie - actor
+            var updateActorDTO = new UpdateActorMovieDTO
+            {
+                MovieIds = new List<int> { film.Id }
+            };
+
+            await actorService.UpdateActorMoviesAsync(actor.Id, updateActorDTO);
+
+            Console.WriteLine("film and actor connected successfully.");
+
+
 
             // find last movie in the database
             var allMovies = await movieService.GetAllMovies();
