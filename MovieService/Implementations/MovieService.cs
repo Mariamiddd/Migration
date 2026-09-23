@@ -75,5 +75,42 @@ namespace MovieService.Implementations
 
             await _movieRepository.AddMovie(movie);
         }
+
+        public async Task UpdateMovieAsync(UpdateMovieDTO updateMovieDTO)
+        {
+            if (updateMovieDTO == null)
+                throw new ArgumentNullException(nameof(updateMovieDTO));
+
+            if (string.IsNullOrWhiteSpace(updateMovieDTO.Title))
+                throw new ArgumentException("Movie title cannot be null or empty.", nameof(updateMovieDTO.Title));
+
+            // check movie in the database
+            var existingMovie = await _movieRepository.GetMovieById(updateMovieDTO.Id);
+            if (existingMovie == null)
+            {
+                throw new KeyNotFoundException($"Movie with Id {updateMovieDTO.Id} was not found.");
+            }
+
+            // update the movie properties
+            existingMovie.Title = updateMovieDTO.Title;
+            existingMovie.ReleaseYear = updateMovieDTO.ReleaseYear;
+            existingMovie.StudioId = updateMovieDTO.StudioId;
+
+            await _movieRepository.UpdateMovie(existingMovie);
+        }
+
+        public async Task DeleteMovieAsync(int id)
+        {
+            // cehck if the movie exists
+            var existingMovie = await _movieRepository.GetMovieById(id);
+            if (existingMovie == null)
+            {
+                throw new KeyNotFoundException($"Movie with Id {id} was not found.");
+            }
+
+            // delete the movie
+            await _movieRepository.DeleteMovie(existingMovie);
+        }
+
     }
 }

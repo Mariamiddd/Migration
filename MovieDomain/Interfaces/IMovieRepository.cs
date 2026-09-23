@@ -11,5 +11,10 @@ namespace MovieDomain.Interfaces
         Task<ICollection<Movie>> GetAllMovies();
         Task AddMovie(Movie movie);
         Task<Movie> GetMovieById(int id);
+
+        // update da delete methodebi
+
+        Task UpdateMovie(Movie movie);
+        Task DeleteMovie(Movie movie);
     }
 }

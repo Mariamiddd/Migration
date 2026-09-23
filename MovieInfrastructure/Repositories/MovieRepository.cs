@@ -36,5 +36,19 @@ namespace MovieInfrastructure.Repositories
                 .Include(m => m.Studio)
                 .FirstOrDefaultAsync(m => m.Id == id);
         }
+
+        //  update da delete
+        public async Task UpdateMovie(Movie movie)
+        {
+
+            _movieDbContext.Movies.Update(movie);
+            await _movieDbContext.SaveChangesAsync();
+        }
+
+        public async Task DeleteMovie(Movie movie)
+        {
+            _movieDbContext.Movies.Remove(movie);
+            await _movieDbContext.SaveChangesAsync();
+        }
     }
 }

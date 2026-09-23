@@ -56,6 +56,29 @@ namespace Movie.UI
             {
                 Console.WriteLine($"Title: {movie.Title}, Release Year: {movie.ReleaseYear}, Studio: {movie.StudioName}");
             }
+
+
+
+            // test update
+            var updateMovieDto = new UpdateMovieDTO
+            {
+                Id = 1, // update the movie with ID 1
+                Title = "Inception - Updated",
+                ReleaseYear = 2012,
+                StudioId = 1
+            };
+
+            await movieService.UpdateMovieAsync(updateMovieDto);
+            Console.WriteLine("\n--- Movie Updated ---");
+            var updatedMovie = await movieService.GetMovieById(1);
+            Console.WriteLine($"Title: {updatedMovie.Title}, Release Year: {updatedMovie.ReleaseYear}");
+
+            // test delete
+            await movieService.DeleteMovieAsync(1);
+            Console.WriteLine("\n--- Movie Deleted ---");
+
+            var remainingMovies = await movieService.GetAllMovies();
+            Console.WriteLine($"Remaining movies count: {remainingMovies.Count}");
         }
     }
 }
