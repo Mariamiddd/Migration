@@ -17,20 +17,20 @@ namespace MovieInfrastructure.Repositories
         {
             _movieDbContext = movieDbContext;
         }
-        public async Task AddMovie(Movie movie)
+        public async Task AddMovieAsync(Movie movie)
         {
             await _movieDbContext.Movies.AddAsync(movie);
             await _movieDbContext.SaveChangesAsync();
         }
 
-        public async Task<ICollection<Movie>> GetAllMovies()
+        public async Task<ICollection<Movie>> GetAllMoviesAsync()
         {
             return await _movieDbContext.Movies
                 .Include(m => m.Studio)
                 .ToListAsync();
         }
 
-        public async Task<Movie> GetMovieById(int id)
+        public async Task<Movie> GetMovieByIdAsync(int id)
         {
             return await _movieDbContext.Movies
                 .Include(m => m.Studio)

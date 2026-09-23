@@ -10,6 +10,6 @@ namespace MovieDomain.DTOs
         public string FirstName { get; set; }
         public string LastName { get; set; }
 
-        public ICollection<string> MvoieTiles { get; set; } = new List<string>();
+        public ICollection<string> MovieTitles { get; set; } = new List<string>();
     }
 }

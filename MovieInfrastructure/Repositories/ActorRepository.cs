@@ -1,4 +1,5 @@
-﻿using MovieDomain.Entities;
+﻿using Microsoft.EntityFrameworkCore;
+using MovieDomain.Entities;
 using MovieDomain.Interfaces;
 using MovieInfrastructure.Data;
 using System;

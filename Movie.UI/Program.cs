@@ -22,12 +22,14 @@ namespace Movie.UI
             services.AddDbContext<MovieDbContext>();
             services.AddScoped<IMovieRepository, MovieRepository>();
             services.AddScoped<IMovieService, MovieService.Implementations.MovieService>();
+            services.AddScoped<IActorService, ActorService.Implementations.ActorService>();
+
 
 
             services.AddScoped<IActorRepository, ActorRepository>();
-            services.AddScoped<IActorService, ActorService>();
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddScoped<IActorService, ActorService>();
 
             var serviceProvider = services.BuildServiceProvider();
 

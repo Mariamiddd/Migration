@@ -1,9 +1,12 @@
 ﻿using MovieDomain.DTOs;
 using MovieDomain.Entities;
 using MovieDomain.Interfaces;
+using MovieService.Interfaces;
+using MovieService.Implementations;
 using System;
 using System.Collections.Generic;
 using System.Text;
+
 
 namespace MovieService.Implementations
 {
@@ -29,7 +32,7 @@ namespace MovieService.Implementations
                 FirstName = a.FirstName,
                 LastName = a.LastName,
 
-                MvoieTiles = a.Movies.Select(m => m.Title).ToList()
+                MovieTitles = a.Movies.Select(m => m.Title).ToList()
 
             }).ToList();
 
@@ -54,7 +57,7 @@ namespace MovieService.Implementations
                 FirstName = actor.FirstName,
                 LastName = actor.LastName,
 
-                MvoieTiles = actor.Movies.Select(m => m.Title).ToList()
+                MovieTitles = actor.Movies.Select(m => m.Title).ToList()
 
             };
 
