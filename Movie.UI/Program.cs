@@ -22,12 +22,7 @@ namespace Movie.UI
             services.AddDbContext<MovieDbContext>();
             services.AddScoped<IMovieRepository, MovieRepository>();
             services.AddScoped<IMovieService, MovieService.Implementations.MovieService>();
-            services.AddScoped<IActorService, ActorService.Implementations.ActorService>();
-
-
-
             services.AddScoped<IActorRepository, ActorRepository>();
-
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IActorService, ActorService>();
 
@@ -42,59 +37,6 @@ namespace Movie.UI
 
 
 
-            //var studio = new Studio
-            //{
-            //    Name = "Warner Bros.",
-            //    CountryId = 1
-            //};
-
-
-            /////
-            //servises.AddDbContext<MovieDbContext>();
-            //servises.AddScoped<IMovieRepository, MovieRepository>();
-            //servises.AddScoped<IMovieService, MovieService>();
-
-            //servises.AddScoped<IActorRepository, ActorRepository>();
-            //servises.AddScoped<IActorService, ActorService>();
-
-
-            //servises.AddScoped<IUnitOfWork, UnitOfWork>();
-
-
-
-
-            //var serviceProvider = servises.BuildServiceProvider();
-
-            //var movieService = serviceProvider.GetRequiredService<IMovieService>();
-            //var actorService = serviceProvider.GetRequiredService<IActorService>();
-
-            ////
-
-            //dbContext.Studios.Add(studio);
-            //await dbContext.SaveChangesAsync();
-
-            //var createMovieDto = new CreateMovieDTO
-            //{
-            //    Title = "Inception",
-            //    ReleaseYear = 2010,
-            //    StudioId = studio.Id
-            //};
-
-            //await movieService.AddMovieAsync(createMovieDto);
-
-
-            //var movieById = await movieService.GetMovieById(1);
-            //Console.WriteLine($"Retrieved Movie: Title: {movieById.Title}, Release Year: {movieById.ReleaseYear}, Studio: {movieById.StudioName}");
-
-            //var movies = await movieService.GetAllMovies();
-
-            //foreach (var movie in movies)
-            //{
-            //    Console.WriteLine($"Title: {movie.Title}, Release Year: {movie.ReleaseYear}, Studio: {movie.StudioName}");
-            //}
-
-
-
             var actorsWithMovies = await dbContext.Actors
                 .Include(a => a.Movies)
                 .ToListAsync();
@@ -106,6 +48,32 @@ namespace Movie.UI
                     Console.Write($" - {movie.Title}");
                 }
                 Console.WriteLine();
+            }
+
+
+            //test
+            //  add studio
+            var studio = new Studio { Name = "Universal Pictures", CountryId = 1 };
+            dbContext.Studios.Add(studio);
+            await dbContext.SaveChangesAsync();
+
+            // create movie
+            var createMovieDto = new CreateMovieDTO
+            {
+                Title = "singin in the rain",
+                ReleaseYear = 1952,
+                StudioId = studio.Id
+            };
+            await movieService.AddMovieAsync(createMovieDto);
+            Console.WriteLine("--- movie added successfully! ---");
+
+            // find last movie in the database
+            var allMovies = await movieService.GetAllMovies();
+            var lastMovie = allMovies.LastOrDefault();
+
+            if (lastMovie != null)
+            {
+                Console.WriteLine($"last movie in the database: ID: {lastMovie.Id}, Title: {lastMovie.Title}, Studio: {lastMovie.StudioName}");
             }
         }
     }

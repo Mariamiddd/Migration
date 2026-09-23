@@ -6,16 +6,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using MovieDomain.DTOs;
+using MovieService.Implementations;
 
 namespace MovieService.Implementations
 {
     public class MovieService : IMovieService
     {
         private readonly IMovieRepository _movieRepository;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public MovieService(IMovieRepository movieRepository)
+        public MovieService(IMovieRepository movieRepository, IUnitOfWork unitOfWork)
         {
             _movieRepository = movieRepository;
+            _unitOfWork = unitOfWork;
         }
 
         public async Task<ICollection<MovieDTO>> GetAllMovies()
@@ -124,11 +127,7 @@ namespace MovieService.Implementations
             }
             await _movieRepository.DeleteMovieAsync(id);
             await _unitOfWork.SaveChangesAsync();
-        }
 
-        public Task UpdateMovieAsync(UpdateMovieDTO updateMovieDTO)
-        {
-            throw new NotImplementedException();
         }
     }
 }
