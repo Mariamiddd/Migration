@@ -8,13 +8,13 @@ namespace MovieDomain.Interfaces
 {
     public interface IMovieRepository
     {
-        Task<ICollection<Movie>> GetAllMovies();
-        Task AddMovie(Movie movie);
-        Task<Movie> GetMovieById(int id);
+        Task<ICollection<Movie.Domain.Entities.Movie>> GetAllMoviesAsync();
+        Task AddMovieAsync(Movie.Domain.Entities.Movie movie);
 
-        // update da delete methodebi
+        Task<Movie.Domain.Entities.Movie> GetMovieByIdAsync(int id);
 
-        Task UpdateMovie(Movie movie);
-        Task DeleteMovie(Movie movie);
+
+        Task UpdateMovieAsync(int id, Domain.Entities.Movie movie);
+        Task DeleteMovieAsync(int id);
     }
 }

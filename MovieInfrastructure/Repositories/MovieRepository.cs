@@ -38,17 +38,36 @@ namespace MovieInfrastructure.Repositories
         }
 
         //  update da delete
-        public async Task UpdateMovie(Movie movie)
+        public async Task UpdateMovieAsync(int id, Movie movie)
         {
+            var movieExists =
+                await _movieDbContext.Movies
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (movieExists == null)
+            {
+                throw new ArgumentException("Movie not found");
+            }
 
-            _movieDbContext.Movies.Update(movie);
-            await _movieDbContext.SaveChangesAsync();
+            movieExists.Title = movie.Title;
+            movieExists.ReleaseYear = movie.ReleaseYear;
+            movieExists.StudioId = movie.StudioId;
+
+
         }
 
-        public async Task DeleteMovie(Movie movie)
+
+        public async Task DeleteMovieAsync(int id)
         {
-            _movieDbContext.Movies.Remove(movie);
-            await _movieDbContext.SaveChangesAsync();
+
+            var movieExists = await _movieDbContext.Movies
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (movieExists == null)
+            {
+                throw new ArgumentException("Movie not found");
+            }
+
+            _movieDbContext.Movies.Remove(movieExists);
+
         }
     }
 }

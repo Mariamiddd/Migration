@@ -20,7 +20,7 @@ namespace MovieService.Implementations
 
         public async Task<ICollection<MovieDTO>> GetAllMovies()
         {
-            var movies = await _movieRepository.GetAllMovies();
+            var movies = await _movieRepository.GetAllMoviesAsync();
 
             var movieDTO = movies.Select(m => new MovieDTO
             {
@@ -36,7 +36,7 @@ namespace MovieService.Implementations
 
         public async Task<MovieDTO> GetMovieById(int id)
         {
-            var movie = await _movieRepository.GetMovieById(id);
+            var movie = await _movieRepository.GetMovieByIdAsync(id);
             if (movie == null)
             {
                 return null;
@@ -73,44 +73,62 @@ namespace MovieService.Implementations
                 StudioId = movieDto.StudioId
             };
 
-            await _movieRepository.AddMovie(movie);
+            await _movieRepository.AddMovieAsync(movie);
         }
 
-        public async Task UpdateMovieAsync(UpdateMovieDTO updateMovieDTO)
+
+        public async Task UpdateMovieAsync(int id, UpdateMovieDTO movieDto)
         {
-            if (updateMovieDTO == null)
-                throw new ArgumentNullException(nameof(updateMovieDTO));
 
-            if (string.IsNullOrWhiteSpace(updateMovieDTO.Title))
-                throw new ArgumentException("Movie title cannot be null or empty.", nameof(updateMovieDTO.Title));
-
-            // check movie in the database
-            var existingMovie = await _movieRepository.GetMovieById(updateMovieDTO.Id);
-            if (existingMovie == null)
+            if (movieDto == null)
             {
-                throw new KeyNotFoundException($"Movie with Id {updateMovieDTO.Id} was not found.");
+                throw new ArgumentNullException(nameof(movieDto));
+            }
+            if (string.IsNullOrWhiteSpace(movieDto.Title))
+            {
+                throw new ArgumentException("Movie title cannot be null or empty.", nameof(movieDto.Title));
+            }
+            if (movieDto.ReleaseYear < 0)
+            {
+                throw new ArgumentException("Movie release year cannot be negative.", nameof(movieDto.ReleaseYear));
+            }
+            if (movieDto.ReleaseYear > DateTime.Now.Year)
+            {
+                throw new ArgumentException("Movie release year cannot be from future.", nameof(movieDto.ReleaseYear));
+            }
+            if (movieDto.StudioId <= 0)
+            {
+                throw new ArgumentException("Movie studio ID must be a positive integer.", nameof(movieDto.StudioId));
             }
 
-            // update the movie properties
-            existingMovie.Title = updateMovieDTO.Title;
-            existingMovie.ReleaseYear = updateMovieDTO.ReleaseYear;
-            existingMovie.StudioId = updateMovieDTO.StudioId;
+            var movie = new Movie
+            {
+                Title = movieDto.Title,
+                ReleaseYear = movieDto.ReleaseYear,
+                StudioId = movieDto.StudioId
+            };
 
-            await _movieRepository.UpdateMovie(existingMovie);
+
+
+            await _movieRepository.UpdateMovieAsync(id, movie);
+            await _unitOfWork.SaveChangesAsync();
         }
+
+
 
         public async Task DeleteMovieAsync(int id)
         {
-            // cehck if the movie exists
-            var existingMovie = await _movieRepository.GetMovieById(id);
-            if (existingMovie == null)
+            if (id <= 0)
             {
-                throw new KeyNotFoundException($"Movie with Id {id} was not found.");
+                throw new ArgumentException("Movie ID must be a positive integer.", nameof(id));
             }
-
-            // delete the movie
-            await _movieRepository.DeleteMovie(existingMovie);
+            await _movieRepository.DeleteMovieAsync(id);
+            await _unitOfWork.SaveChangesAsync();
         }
 
+        public Task UpdateMovieAsync(UpdateMovieDTO updateMovieDTO)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
