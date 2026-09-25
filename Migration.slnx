@@ -4,5 +4,6 @@
     <Project Path="MovieDomain/MovieDomain.csproj" Id="8d4a0714-d52c-4b67-95ee-465c52ef35f2" />
     <Project Path="MovieInfrastructure/MovieInfrastructure.csproj" Id="bb5fcfcf-a046-4f5f-b510-d3dd0611a735" />
     <Project Path="MovieService/MovieService.csproj" Id="4a43347c-7792-444f-afcd-f88dd674109f" />
+    <Project Path="TestProject1/TestProject1.csproj" Id="063c6951-eba1-463f-b6b6-0bd3e49c60d1" />
   </Folder>
 </Solution>

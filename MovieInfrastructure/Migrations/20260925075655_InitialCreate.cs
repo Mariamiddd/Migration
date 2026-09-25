@@ -32,7 +32,7 @@ namespace MovieInfrastructure.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    countryName = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -126,7 +126,7 @@ namespace MovieInfrastructure.Migrations
 
             migrationBuilder.InsertData(
                 table: "Countries",
-                columns: new[] { "Id", "Name" },
+                columns: new[] { "Id", "countryName" },
                 values: new object[,]
                 {
                     { 1, "USA" },

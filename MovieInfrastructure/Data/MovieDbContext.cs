@@ -1,5 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using MovieDomain.Entities;
+using System;
+
+
 
 namespace MovieInfrastructure.Data
 {
@@ -12,9 +16,27 @@ namespace MovieInfrastructure.Data
 
         public DbSet<StudioDetails> StudioDetails { get; set; }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        public MovieDbContext()
         {
-            optionsBuilder.UseSqlServer(@"Server=.\SQLEXPRESS;Database=MovieMigration;Trusted_Connection=true;TrustServerCertificate=True;");
+
+        }
+
+        public MovieDbContext(DbContextOptions<MovieDbContext> options) : base(options)
+        {
+
+        }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        { 
+            if(!optionsBuilder.IsConfigured)
+            {
+                var configuration = new ConfigurationBuilder()
+                    .SetBasePath(AppContext.BaseDirectory)
+                    .AddJsonFile("appsettings.json")
+                    .Build();
+                var connectionString = configuration.GetConnectionString("DefaultConnection");
+                optionsBuilder.UseSqlServer(connectionString);
+            }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -52,10 +74,15 @@ namespace MovieInfrastructure.Data
             //data seeding 
             modelBuilder.Entity<Country>()
                 .HasData(
-                    new Country { Id = 1, Name = "USA" },
-                    new Country { Id = 2, Name = "UK" },
-                    new Country { Id = 3, Name = "France" }
+                    new Country { Id = 1, countryName = "USA" },
+                    new Country { Id = 2, countryName = "UK" },
+                    new Country { Id = 3, countryName = "France" }
                 );
+
+
+
+
+
         }
     }
 }

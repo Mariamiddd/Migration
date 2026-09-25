@@ -20,7 +20,6 @@ namespace MovieInfrastructure.Repositories
         public async Task AddMovieAsync(Movie movie)
         {
             await _movieDbContext.Movies.AddAsync(movie);
-            await _movieDbContext.SaveChangesAsync();
         }
 
         public async Task<ICollection<Movie>> GetAllMoviesAsync()
@@ -67,6 +66,64 @@ namespace MovieInfrastructure.Repositories
             }
 
             _movieDbContext.Movies.Remove(movieExists);
+
+        }
+
+
+        // seatch movie
+
+        //davaleba1 
+        public async Task<ICollection<Movie>> SearchMoviesByStudioAsync(int year, string studioName, int minimumActorCount)
+        {
+            var movies = await _movieDbContext.Movies
+                .Include(m => m.Studio)
+                .Include(m => m.Actors)
+                .Where(m => m.ReleaseYear >= year
+                         && m.Studio.Name == studioName
+                         && m.Actors.Count >= minimumActorCount)
+                .OrderByDescending(m => m.ReleaseYear)
+                .ThenBy(m => m.Title)
+                .ToListAsync();
+
+            return movies;
+        }
+
+        //დავალება 2 ქვეყნის მიხედვით ფილმების ძებნა
+        public async Task<ICollection<Movie>> SearchMoviesByCountryAsync(string CountryName, int minimumYear, int maximumActorCount)
+        {
+            var movies = await _movieDbContext.Movies
+                .Include(m => m.Studio)
+                    .ThenInclude(s => s.Country)
+                .Include(m => m.Actors)
+                .Where(m => m.Studio.Country.countryName == CountryName
+                         && m.ReleaseYear >= minimumYear
+                         && m.Actors.Count <= maximumActorCount)
+                .OrderBy(m => m.Actors.Count)
+                .ThenByDescending(m => m.ReleaseYear)
+                .ThenBy(m => m.Title)
+                .ToListAsync();
+
+            return movies;
+        }
+
+        public async Task<ICollection<Movie>> SearchMoviesAdvancedAsync(int fromYear, int toYear, string countryName, string titleText, int minimumActorCount)
+        {
+            var movies = await _movieDbContext.Movies
+         .Include(m => m.Studio)
+             .ThenInclude(s => s.Country)
+         .Include(m => m.Actors)
+         .Where(m => m.ReleaseYear >= fromYear
+                  && m.ReleaseYear <= toYear
+                  && m.Studio.Country.countryName == countryName
+                  && m.Title.Contains(titleText)
+                  && m.Actors.Count >= minimumActorCount)
+         .OrderByDescending(m => m.Actors.Count)
+         .ThenByDescending(m => m.ReleaseYear)
+         .ThenBy(m => m.Studio.Name)
+         .ThenBy(m => m.Title)
+         .ToListAsync();
+
+            return movies;
 
         }
     }

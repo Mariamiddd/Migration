@@ -11,7 +11,7 @@ using MovieInfrastructure.Data;
 namespace MovieInfrastructure.Migrations
 {
     [DbContext(typeof(MovieDbContext))]
-    [Migration("20260919203341_InitialCreate")]
+    [Migration("20260925075655_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -68,7 +68,7 @@ namespace MovieInfrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Name")
+                    b.Property<string>("countryName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -80,17 +80,17 @@ namespace MovieInfrastructure.Migrations
                         new
                         {
                             Id = 1,
-                            Name = "USA"
+                            countryName = "USA"
                         },
                         new
                         {
                             Id = 2,
-                            Name = "UK"
+                            countryName = "UK"
                         },
                         new
                         {
                             Id = 3,
-                            Name = "France"
+                            countryName = "France"
                         });
                 });
 

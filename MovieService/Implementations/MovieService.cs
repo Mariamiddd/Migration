@@ -27,7 +27,7 @@ namespace MovieService.Implementations
 
             var movieDTO = movies.Select(m => new MovieDTO
             {
-                Id = m.Id, 
+                Id = m.Id,
                 Title = m.Title,
                 ReleaseYear = m.ReleaseYear,
                 StudioName = m.Studio.Name,
@@ -77,6 +77,7 @@ namespace MovieService.Implementations
             };
 
             await _movieRepository.AddMovieAsync(movie);
+            await _unitOfWork.SaveChangesAsync();
         }
 
 
@@ -128,6 +129,71 @@ namespace MovieService.Implementations
             await _movieRepository.DeleteMovieAsync(id);
             await _unitOfWork.SaveChangesAsync();
 
+        }
+
+
+
+
+        public async Task<ICollection<MovieDTO>> SearchMoviesByStudioAsync(int year, string studioName, int minimumActorCount)
+        {
+            // take data from repository
+            var movies = await _movieRepository.SearchMoviesByStudioAsync(year, studioName, minimumActorCount);
+
+            // concert data to DTO and return
+            return movies.Select(m => new MovieDTO
+            {
+                Id = m.Id,
+                Title = m.Title,
+                ReleaseYear = m.ReleaseYear,
+                StudioName = m.Studio.Name
+            }).ToList();
+        }
+
+
+        // დაბალება1
+        public async Task<ICollection<MovieDTO>> SearchMoviesByCountryAsync(string countryName, int minimumYear, int maximumActorCount)
+        {
+            // take data from repository
+            var movies = await _movieRepository.SearchMoviesByCountryAsync(countryName, minimumYear, maximumActorCount);
+
+            // convert data to DTO and return
+            return movies.Select(m => new MovieDTO
+            {
+                Id = m.Id,
+                Title = m.Title,
+                ReleaseYear = m.ReleaseYear,
+                StudioName = m.Studio.Name,
+                CountryName = m.Studio.Country.countryName
+            }).ToList();
+        }
+
+        //დავალება 2
+        public async Task<ICollection<MovieDTO>> SearchMoviesByCountryAndActorCountAsync(string CountryName, int minimumYear, int maximumActorCount)
+        {
+            var movies = await _movieRepository.SearchMoviesByCountryAsync(CountryName, minimumYear, maximumActorCount);
+            return movies.Select(m => new MovieDTO
+            {
+                Id = m.Id,
+                Title = m.Title,
+                ReleaseYear = m.ReleaseYear,
+                StudioName = m.Studio.Name,
+                CountryName = m.Studio.Country.countryName
+            }).ToList();
+        }
+
+        // დავალება 3
+        public async Task<ICollection<MovieDTO>> SearchMoviesAdvancedAsync(int fromYear, int toYear, string countryName, string titleText, int minimumActorCount)
+        {
+            var movies = await _movieRepository.SearchMoviesAdvancedAsync(fromYear, toYear, countryName, titleText, minimumActorCount);
+
+            return movies.Select(m => new MovieDTO
+            {
+                Id = m.Id,
+                Title = m.Title,
+                ReleaseYear = m.ReleaseYear,
+                StudioName = m.Studio.Name,
+                CountryName = m.Studio.Country.countryName
+            }).ToList();
         }
     }
 }
