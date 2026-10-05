@@ -1,0 +1,41 @@
+﻿@page "{id:int}"
+@model Movie.Web.Pages.Movies.EditModel
+
+@{
+    ViewData["Title"] = "Edit Movie";
+}
+
+<section class="edit-page">
+    <div class="edit-card">
+
+        <div class="edit-header">
+            <p class="eyebrow">EDIT ENTRY</p>
+            <h1>Edit Movie</h1>
+            <p>Update the movie details in your collection below.</p>
+        </div>
+
+        <form method="post" class="movie-form">
+            <div asp-validation-summary="All" class="validation-summary"></div>
+
+            <input type="hidden" asp-for="Movie.Id" />
+
+            <div class="form-group">
+                <label asp-for="Movie.Title">Movie Title</label>
+                <input asp-for="Movie.Title" class="form-control" placeholder="Enter movie title..." required />
+                <span asp-validation-for="Movie.Title" class="validation-message"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Movie.ReleaseYear">Release Year</label>
+                <input asp-for="Movie.ReleaseYear" type="number" class="form-control" placeholder="e.g. 2024" required />
+                <span asp-validation-for="Movie.ReleaseYear" class="validation-message"></span>
+            </div>
+
+            <div class="form-actions">
+                <a asp-page="./Index" class="cancel-button">Cancel</a>
+                <button type="submit" class="submit-button">Save Changes</button>
+            </div>
+        </form>
+
+    </div>
+</section>

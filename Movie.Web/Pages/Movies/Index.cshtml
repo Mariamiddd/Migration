@@ -1,0 +1,174 @@
+﻿@page
+@model Movie.Web.Pages.Movies.IndexModel
+
+@{
+    ViewData["Title"] = "Movies";
+}
+
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        @TempData["Success"]
+
+        <button type="button"
+                class="btn-close"
+                data-bs-dismiss="alert">
+        </button>
+    </div>
+}
+
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        @TempData["Error"]
+
+        <button type="button"
+                class="btn-close"
+                data-bs-dismiss="alert">
+        </button>
+    </div>
+}
+
+<section class="movies-page">
+
+    <div class="page-intro">
+        <p class="eyebrow">MOVIE COLLECTION</p>
+        <h1>Discover the Movies</h1>
+        <p class="intro-text">
+            Explore our collection of films and discover more about
+            their release year and studio.
+        </p>
+    </div>
+
+    <section class="movie-section">
+
+        <div class="section-heading">
+            <div>
+                <p class="section-label">OUR COLLECTION</p>
+                <h2>Movies</h2>
+            </div>
+
+            <a class="create-movie-button" asp-page="/Movies/Create">
+                + Add Movie
+            </a>
+        </div>
+
+        <!-- Advanced Search Bar -->
+        <form method="get">
+
+            <div>
+
+                <div>
+
+                    <!-- Release Year -->
+                    <div>
+
+                        <label asp-for="Year">
+                            Release Year
+                        </label>
+
+                        <input asp-for="Year"
+                               type="number"
+                               placeholder="e.g. 2024" />
+
+                    </div>
+
+                    <!-- Studio -->
+                    <div>
+
+                        <label asp-for="StudioName">
+                            Studio
+                        </label>
+
+                        <input asp-for="StudioName"
+                               placeholder="e.g. Warner Bros." />
+
+                    </div>
+
+                    <!-- Minimum Actors -->
+                    <div>
+
+                        <label asp-for="MinimumActorCount">
+                            Min Actors
+                        </label>
+
+                        <input asp-for="MinimumActorCount"
+                               type="number"
+                               placeholder="e.g. 3" />
+
+                    </div>
+
+                    <!-- Search Button -->
+                    <div>
+
+                        <button type="submit">
+                            Search
+                        </button>
+
+                        <a asp-page="./Index">
+                            Clear
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </form>
+
+        <div class="movies-container">
+            @if (Model.Movies != null && Model.Movies.Any())
+            {
+                @foreach (var movie in Model.Movies)
+                {
+                    <article class="movie-card">
+                        <div class="movie-card-content">
+                            <p class="movie-label">FILM</p>
+
+                            <h3 class="movie-title">
+                                <a asp-page="/Movies/Details" asp-route-id="@movie.Id">
+                                    @movie.Title
+                                </a>
+                            </h3>
+
+                            <div class="movie-info">
+                                <p>
+                                    <span>Release Year</span>
+                                    @movie.ReleaseYear
+                                </p>
+
+                                <p>
+                                    <span>Studio</span>
+                                    @movie.StudioName
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="movie-actions">
+                            <a class="movie-button" asp-area="" asp-page="/Movies/Details" asp-route-id="@movie.Id">Details</a>
+                            <a class="edit-button" asp-area="" asp-page="/Movies/Edit" asp-route-id="@movie.Id">Edit</a>
+
+                            <form method="post" asp-page-handler="Delete" asp-route-id="@movie.Id" class="delete-form">
+                                <button type="submit" class="delete-button">Delete</button>
+                            </form>
+                        </div>
+                    </article>
+                }
+            }
+            else
+            {
+                <div class="empty-movies">
+                    <p class="empty-label">NO RESULTS</p>
+                    <h3>No Movies Found</h3>
+                    <p>Try adjusting your search filters above.</p>
+                </div>
+            }
+        </div>
+
+    </section>
+
+</section>
+
+
+

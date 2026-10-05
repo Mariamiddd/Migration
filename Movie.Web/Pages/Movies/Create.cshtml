@@ -1,0 +1,113 @@
+﻿@page
+@model Movie.Web.Pages.Movies.CreateModel
+
+<link rel="stylesheet" href="~/css/Movie.css">
+
+@if (!Model.ModelState.IsValid)
+{
+<div class="alert alert-danger" role="alert">
+        <ul>
+            @foreach (var error in Model.ModelState.Values.SelectMany(x => x.Errors))
+            {
+                <li>@error.ErrorMessage</li>
+            }
+        </ul>
+    </div>
+}
+
+
+@if (TempData["Success"] != null)
+{
+<div class="alert alert-success" role="alert">
+        @TempData["Success"]
+    </div>
+}
+
+<section class="create-page">
+
+    <div class="create-card">
+
+        <div class="create-header">
+
+            <p class="eyebrow">MOVIE COLLECTION</p>
+
+            <h1>Add a New Movie</h1>
+
+            <p>
+                Add a movie to your collection by entering
+                its basic information below.
+            </p>
+
+        </div>
+
+
+        <form method="post" class="movie-form">
+
+            <div class="form-group">
+
+                <label asp-for="Movie.Title">
+                    Movie Title
+                </label>
+
+                <input asp-for="Movie.Title"
+                       placeholder="Enter movie title" />
+
+                <span asp-validation-for="Movie.Title"
+                      class="validation-message">
+                </span>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label asp-for="Movie.ReleaseYear">
+                    Release Year
+                </label>
+
+                <input asp-for="Movie.ReleaseYear"
+                       type="number"
+                       placeholder="e.g. 2024" />
+
+                <span asp-validation-for="Movie.ReleaseYear"
+                      class="validation-message">
+                </span>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label asp-for="Movie.StudioId">
+                    Studio ID
+                </label>
+
+                <input asp-for="Movie.StudioId"
+                       type="number"
+                       placeholder="Enter studio ID" />
+
+                <span asp-validation-for="Movie.StudioId"
+                      class="validation-message">
+                </span>
+
+            </div>
+
+
+            <div class="form-actions">
+
+                <a class="cancel-button"
+                   asp-page="/Movies/Index">
+                    Cancel
+                </a>
+
+                <button type="submit" class="submit-button">
+                    Add Movie
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</section>

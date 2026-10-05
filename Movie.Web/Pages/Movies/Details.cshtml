@@ -1,0 +1,45 @@
+﻿@page
+@model Movie.Web.Pages.Movies.DetailsModel
+
+@{
+    ViewData["Title"] = Model.Movie.Title;
+}
+
+<section class="details-page">
+
+    <article class="details-card">
+
+        <p class="details-eyebrow">MOVIE DETAILS</p>
+
+        <h1 class="details-title">
+            @Model.Movie.Title
+        </h1>
+
+        <hr class="movie-divider" />
+
+        <div class="details-info">
+
+            <p>
+                <span class="info-label">Release Year</span>
+                <span class="details-value">
+                    @Model.Movie.ReleaseYear
+                </span>
+            </p>
+
+            <p>
+                <span class="info-label">Studio</span>
+                <span class="details-value">
+                    @Model.Movie.StudioName
+                </span>
+            </p>
+
+        </div>
+
+        <a class="btn-custom-back"
+           asp-page="/Movies/Index">
+            ← Back to Movies
+        </a>
+
+    </article>
+
+</section>

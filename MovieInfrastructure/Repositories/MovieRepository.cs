@@ -39,9 +39,9 @@ namespace MovieInfrastructure.Repositories
         //  update da delete
         public async Task UpdateMovieAsync(int id, Movie movie)
         {
-            var movieExists =
-                await _movieDbContext.Movies
+            var movieExists = await _movieDbContext.Movies
                 .FirstOrDefaultAsync(m => m.Id == id);
+
             if (movieExists == null)
             {
                 throw new ArgumentException("Movie not found");
@@ -49,9 +49,13 @@ namespace MovieInfrastructure.Repositories
 
             movieExists.Title = movie.Title;
             movieExists.ReleaseYear = movie.ReleaseYear;
-            movieExists.StudioId = movie.StudioId;
 
+            if (movie.StudioId > 0)
+            {
+                movieExists.StudioId = movie.StudioId;
+            }
 
+            await _movieDbContext.SaveChangesAsync();
         }
 
 

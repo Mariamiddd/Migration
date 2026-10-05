@@ -1,0 +1,74 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>@ViewData["Title"] - Movie.Web</title>
+
+    <link rel="stylesheet"
+          href="~/Movie.Web.styles.css"
+          asp-append-version="true" />
+
+    <link rel="stylesheet"
+          href="~/css/movies.css"
+          asp-append-version="true" />
+</head>
+
+<body class="site-body">
+
+    <header class="site-header">
+
+        <nav class="site-nav">
+
+            <div class="nav-container">
+
+                <a class="brand" asp-page="/Index">
+                    Movie<span>.</span>Web
+                </a>
+
+                <div class="nav-links">
+
+                    <a asp-page="/Index">
+                        Home
+                    </a>
+
+                    <a asp-page="/Movies/Index">
+                        Movies
+                    </a>
+
+                </div>
+
+            </div>
+
+        </nav>
+
+    </header>
+
+
+    <main>
+        @RenderBody()
+    </main>
+
+
+    <footer class="site-footer">
+
+        <div class="footer-container">
+
+            <p>
+                &copy; 2026 Movie.Web
+            </p>
+
+            <a asp-page="/Privacy">
+                Privacy
+            </a>
+
+        </div>
+
+    </footer>
+
+
+    @await RenderSectionAsync("Scripts", required: false)
+
+</body>
+</html>

@@ -1,0 +1,879 @@
+﻿/* =========================================================
+   CSS
+   ========================================================= */
+
+:root {
+    --cream: #FFF9D6;
+    --pink-light: #FFDCDC;
+    --pink: #D8A2A2;
+    --green: #8EA66B;
+    --red: #D45060;
+    --dark: #2C2C2C;
+    --white: #ffffff;
+    --border: rgba(44, 44, 44, 0.12);
+    --shadow: 0 10px 30px rgba(44, 44, 44, 0.08);
+}
+
+
+/* =========================================================
+   Base
+   ========================================================= */
+
+html {
+    font-size: 16px;
+}
+
+body {
+    margin: 0;
+    background-color: var(--cream);
+    color: var(--dark);
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+a {
+    color: inherit;
+}
+
+
+/* =========================================================
+   Site layout & Header
+   ========================================================= */
+
+.site-body {
+    min-height: 100vh;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--cream);
+    color: var(--dark);
+}
+
+    .site-body main {
+        flex: 1;
+    }
+
+.site-header {
+    background-color: var(--pink-light);
+    border-bottom: 1px solid var(--pink);
+}
+
+.site-nav {
+    width: 100%;
+}
+
+.nav-container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 20px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.brand {
+    color: var(--dark);
+    text-decoration: none;
+    font-size: 1.5rem;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+}
+
+    .brand span {
+        color: var(--red);
+    }
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+}
+
+    .nav-links a {
+        color: var(--dark);
+        text-decoration: none;
+        font-size: 0.95rem;
+        font-weight: 700;
+        transition: color 0.2s ease;
+    }
+
+        .nav-links a:hover {
+            color: var(--red);
+        }
+
+
+/* =========================================================
+   Movies page & Intro
+   ========================================================= */
+
+.movies-page {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 70px 24px 90px;
+}
+
+.page-intro {
+    max-width: 700px;
+    margin-bottom: 65px;
+}
+
+.eyebrow {
+    margin: 0 0 12px;
+    color: var(--red);
+    font-size: 0.75rem;
+    font-weight: 800;
+    letter-spacing: 2px;
+}
+
+.page-intro h1 {
+    margin: 0 0 18px;
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
+    line-height: 1;
+    letter-spacing: -2px;
+}
+
+.intro-text {
+    max-width: 600px;
+    margin: 0;
+    color: rgba(44, 44, 44, 0.7);
+    font-size: 1.05rem;
+    line-height: 1.7;
+}
+
+
+/* =========================================================
+   Movie section heading
+   ========================================================= */
+
+.movie-section {
+    margin-top: 20px;
+}
+
+.section-label {
+    margin: 0 0 5px;
+    color: var(--green);
+    font-size: 0.7rem;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+}
+
+.section-heading {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    margin-bottom: 24px;
+    border-bottom: 2px solid var(--dark);
+    padding-bottom: 12px;
+}
+
+    .section-heading h2 {
+        margin: 0;
+        font-size: 1.7rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+.create-movie-button {
+    display: inline-block;
+    padding: 10px 17px;
+    background-color: var(--green);
+    border: 1px solid var(--green);
+    border-radius: 7px;
+    color: var(--white);
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 700;
+    transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+}
+
+    .create-movie-button:hover {
+        background-color: var(--dark);
+        border-color: var(--dark);
+        color: var(--white);
+        transform: translateY(-2px);
+    }
+
+
+/* =========================================================
+   Movie grid & Card
+   ========================================================= */
+
+.movies-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+}
+
+.movie-card {
+    min-height: 300px;
+    background-color: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 26px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-shadow: var(--shadow);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+    .movie-card:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 16px 35px rgba(44, 44, 44, 0.12);
+    }
+
+.movie-label {
+    margin: 0 0 14px;
+    color: var(--green);
+    font-size: 0.7rem;
+    font-weight: 800;
+    letter-spacing: 2px;
+}
+
+.movie-title {
+    margin: 0 0 28px;
+    font-size: 1.5rem;
+    line-height: 1.2;
+}
+
+.movie-info {
+    border-top: 1px solid var(--border);
+    padding-top: 16px;
+}
+
+    .movie-info p {
+        margin: 0 0 12px;
+        display: flex;
+        flex-direction: column;
+        gap: 3px;
+        font-size: 0.95rem;
+    }
+
+        .movie-info p:last-child {
+            margin-bottom: 0;
+        }
+
+    .movie-info span {
+        color: rgba(44, 44, 44, 0.5);
+        font-size: 0.72rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+
+/* =========================================================
+   Movie action buttons (Refactored)
+   ========================================================= */
+
+.movie-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 28px;
+}
+
+.movie-button,
+.edit-button,
+.delete-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    padding: 10px 12px;
+    border-radius: 7px;
+    font-family: inherit;
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+}
+
+.movie-title a {
+    color: inherit;
+    text-decoration: none;
+}
+
+    .movie-title a:hover {
+        color: var(--red);
+    }
+
+/* Primary / Details Button */
+.movie-actions .movie-button {
+    flex: 1;
+    margin-top: 0;
+    background-color: var(--red);
+    border: 1px solid var(--red);
+    color: var(--white);
+}
+
+    .movie-actions .movie-button:hover {
+        background-color: var(--dark);
+        border-color: var(--dark);
+        color: var(--white);
+        transform: translateY(-2px);
+    }
+
+/* Edit Button */
+.edit-button {
+    background-color: var(--green);
+    border: 1px solid var(--green);
+    color: var(--white);
+}
+
+    .edit-button:hover {
+        background-color: var(--dark);
+        border-color: var(--dark);
+        color: var(--white);
+        transform: translateY(-2px);
+    }
+
+/* Delete Form & Button */
+.delete-form {
+    margin: 0;
+    display: inline-block;
+}
+
+.delete-button {
+    background-color: transparent;
+    border: 1px solid var(--red);
+    color: var(--red);
+}
+
+    .delete-button:hover {
+        background-color: var(--red);
+        color: var(--white);
+        transform: translateY(-2px);
+    }
+
+
+/* =========================================================
+   Details page
+   ========================================================= */
+
+.details-page {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 80px 24px;
+}
+
+.details-card {
+    background-color: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 45px;
+    box-shadow: var(--shadow);
+}
+
+.details-eyebrow {
+    margin: 0 0 12px;
+    color: var(--green);
+    font-size: 0.75rem;
+    font-weight: 800;
+    letter-spacing: 2px;
+}
+
+.details-title {
+    margin: 0;
+    font-size: clamp(2.2rem, 5vw, 3.5rem);
+    line-height: 1.05;
+    letter-spacing: -1.5px;
+}
+
+.movie-divider {
+    border: 0;
+    border-top: 1px solid var(--border);
+    margin: 30px 0;
+}
+
+.details-info {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+    .details-info p {
+        margin: 0;
+        background-color: var(--pink-light);
+        border-radius: 10px;
+        padding: 18px;
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+    }
+
+.info-label {
+    color: rgba(44, 44, 44, 0.55);
+    font-size: 0.7rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.details-value {
+    font-size: 1.05rem;
+    font-weight: 600;
+}
+
+.btn-custom-back {
+    display: inline-block;
+    margin-top: 30px;
+    padding: 11px 20px;
+    background-color: var(--green);
+    color: var(--white);
+    border-radius: 7px;
+    text-decoration: none;
+    font-weight: 700;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+    .btn-custom-back:hover {
+        background-color: var(--dark);
+        color: var(--white);
+        transform: translateY(-2px);
+    }
+
+
+/* =========================================================
+   Create & Edit Movie pages
+   ========================================================= */
+
+.create-page,
+.edit-page {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 70px 24px 90px;
+}
+
+.create-card,
+.edit-card {
+    background-color: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 45px;
+    box-shadow: var(--shadow);
+}
+
+.create-header {
+    margin-bottom: 35px;
+}
+
+    .create-header h1 {
+        margin: 0 0 15px;
+        font-size: clamp(2.3rem, 5vw, 3.5rem);
+        line-height: 1;
+        letter-spacing: -1.5px;
+    }
+
+    .create-header > p:not(.eyebrow) {
+        max-width: 550px;
+        margin: 0;
+        color: rgba(44, 44, 44, 0.65);
+        line-height: 1.7;
+    }
+
+.movie-form {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+    .form-group label {
+        color: var(--dark);
+        font-size: 0.8rem;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    .form-group input {
+        width: 100%;
+        box-sizing: border-box;
+        padding: 13px 15px;
+        background-color: var(--cream);
+        border: 1px solid rgba(44, 44, 44, 0.18);
+        border-radius: 7px;
+        color: var(--dark);
+        font-family: inherit;
+        font-size: 1rem;
+        outline: none;
+        transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+        .form-group input:focus {
+            border-color: var(--green);
+            box-shadow: 0 0 0 3px rgba(142, 166, 107, 0.18);
+        }
+
+        .form-group input::placeholder {
+            color: rgba(44, 44, 44, 0.4);
+        }
+
+.validation-message {
+    color: var(--red);
+    font-size: 0.8rem;
+}
+
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 12px;
+    margin-top: 10px;
+    padding-top: 25px;
+    border-top: 1px solid var(--border);
+}
+
+.cancel-button,
+.submit-button {
+    padding: 11px 20px;
+    border-radius: 7px;
+    font-family: inherit;
+    font-size: 0.9rem;
+    font-weight: 700;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+}
+
+.cancel-button {
+    background-color: transparent;
+    border: 1px solid rgba(44, 44, 44, 0.2);
+    color: var(--dark);
+}
+
+    .cancel-button:hover {
+        background-color: var(--pink-light);
+        color: var(--dark);
+        transform: translateY(-2px);
+    }
+
+.submit-button {
+    background-color: var(--red);
+    border: 1px solid var(--red);
+    color: var(--white);
+}
+
+    .submit-button:hover {
+        background-color: var(--dark);
+        border-color: var(--dark);
+        transform: translateY(-2px);
+    }
+
+
+/* =========================================================
+   Empty state
+   ========================================================= */
+
+.empty-movies {
+    padding: 70px 30px;
+    background-color: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    text-align: center;
+    box-shadow: var(--shadow);
+}
+
+.empty-label {
+    margin: 0 0 12px;
+    color: var(--green);
+    font-size: 0.7rem;
+    font-weight: 800;
+    letter-spacing: 2px;
+}
+
+.empty-movies h3 {
+    margin: 0 0 10px;
+    font-size: 1.5rem;
+}
+
+.empty-movies p:not(.empty-label) {
+    margin: 0 0 25px;
+    color: rgba(44, 44, 44, 0.6);
+}
+
+
+/* =========================================================
+   Footer
+   ========================================================= */
+
+.site-footer {
+    background-color: var(--pink-light);
+    border-top: 1px solid var(--pink);
+}
+
+.footer-container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+    .footer-container p {
+        margin: 0;
+        color: rgba(44, 44, 44, 0.65);
+        font-size: 0.85rem;
+    }
+
+    .footer-container a {
+        color: var(--dark);
+        font-size: 0.85rem;
+        font-weight: 700;
+        text-decoration: none;
+    }
+
+        .footer-container a:hover {
+            color: var(--red);
+        }
+
+
+/* =========================================================
+   Responsive Breakpoints
+   ========================================================= */
+
+@media (max-width: 800px) {
+    .movies-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .page-intro {
+        margin-bottom: 45px;
+    }
+}
+
+@media (max-width: 650px) {
+    .movie-search {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .search-input-wrapper {
+        flex-direction: column;
+    }
+
+    .search-button,
+    .reset-button {
+        width: 100%;
+        box-sizing: border-box;
+        text-align: center;
+    }
+
+    .search-result-info {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 5px;
+    }
+
+    .movie-actions {
+        flex-wrap: wrap;
+    }
+
+        .movie-actions .movie-button {
+            flex-basis: 100%;
+        }
+
+    .edit-button,
+    .delete-form {
+        flex: 1;
+    }
+
+    .delete-button {
+        width: 100%;
+    }
+}
+
+@media (max-width: 550px) {
+    .nav-container {
+        padding: 18px;
+    }
+
+    .nav-links {
+        gap: 16px;
+    }
+
+    .movies-page {
+        padding: 50px 18px 70px;
+    }
+
+    .movies-container {
+        grid-template-columns: 1fr;
+    }
+
+    .details-info {
+        grid-template-columns: 1fr;
+    }
+
+    .details-card {
+        padding: 28px;
+    }
+
+    .create-page,
+    .edit-page {
+        padding: 50px 18px 70px;
+    }
+
+    .create-card,
+    .edit-card {
+        padding: 28px;
+    }
+
+    .footer-container {
+        padding: 20px 18px;
+    }
+}
+
+.edit-header {
+    margin-bottom: 35px;
+}
+
+    .edit-header h1 {
+        margin: 0 0 10px;
+        font-size: clamp(2.3rem, 5vw, 3.5rem);
+        line-height: 1;
+        letter-spacing: -1.5px;
+    }
+
+    .edit-header > p:not(.eyebrow) {
+        max-width: 550px;
+        margin: 0;
+        color: rgba(44, 44, 44, 0.65);
+        line-height: 1.7;
+    }
+
+/* Validation Summary Styling */
+.validation-summary {
+    color: var(--red);
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+    .validation-summary ul {
+        margin: 6px 0 0;
+        padding-left: 20px;
+    }
+
+
+/* Movie search & filters */
+form[method="get"] {
+    background-color: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 30px;
+    box-shadow: var(--shadow);
+}
+
+    form[method="get"] > div > div {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+        gap: 16px;
+        align-items: end; 
+    }
+
+        form[method="get"] > div > div > div {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+            form[method="get"] > div > div > div:last-child {
+                flex-direction: row;
+                gap: 10px;
+                height: 48px; 
+            }
+
+    form[method="get"] label {
+        font-size: 0.72rem;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        color: var(--dark);
+        opacity: 0.75;
+    }
+
+    form[method="get"] input {
+        width: 100%;
+        box-sizing: border-box;
+        padding: 13px 15px;
+        background-color: var(--white);
+        border: 1px solid rgba(44, 44, 44, 0.18);
+        border-radius: 7px;
+        color: var(--dark);
+        font-family: inherit;
+        font-size: 0.95rem;
+        outline: none;
+        transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+        form[method="get"] input:focus {
+            border-color: var(--green);
+            box-shadow: 0 0 0 3px rgba(142, 166, 107, 0.18);
+        }
+
+        form[method="get"] input::placeholder {
+            color: rgba(44, 44, 44, 0.4);
+        }
+
+    form[method="get"] button[type="submit"] {
+        padding: 11px 20px;
+        background-color: var(--red);
+        border: 1px solid var(--red);
+        border-radius: 7px;
+        color: var(--white);
+        font-family: inherit;
+        font-size: 0.9rem;
+        font-weight: 700;
+        cursor: pointer;
+        transition: background-color 0.2s ease, transform 0.2s ease;
+        white-space: nowrap;
+    }
+
+        form[method="get"] button[type="submit"]:hover {
+            background-color: var(--dark);
+            border-color: var(--dark);
+            transform: translateY(-2px);
+        }
+
+    form[method="get"] a {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 11px 18px;
+        background-color: transparent;
+        border: 1px solid rgba(44, 44, 44, 0.2);
+        border-radius: 7px;
+        color: var(--dark);
+        text-decoration: none;
+        font-size: 0.9rem;
+        font-weight: 700;
+        transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+        white-space: nowrap;
+    }
+
+        form[method="get"] a:hover {
+            background-color: var(--pink-light);
+            color: var(--dark);
+            transform: translateY(-2px);
+        }
+
+@media (max-width: 650px) {
+    form[method="get"] > div > div > div:last-child {
+        flex-direction: column;
+        height: auto;
+    }
+
+    form[method="get"] button[type="submit"],
+    form[method="get"] a {
+        width: 100%;
+        text-align: center;
+    }
+}
